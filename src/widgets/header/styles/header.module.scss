@@ -1,0 +1,32 @@
+.header {
+  height: 60px;
+  width: 100%;
+  background-color: var(--black-700);
+  border-bottom: 1px solid var(--black-500);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo {
+  color: var(--ligth-100);
+}
+
+.button {
+  background-color: var(--accent-500);
+  width: 100px;
+  color: var(--ligth-100);
+  border-radius: 4px;
+  height: 36px;
+  box-shadow: 0px 4px 18px 0px rgba(140, 97, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #7750e2fd;
+  }
+}

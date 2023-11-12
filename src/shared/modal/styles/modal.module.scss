@@ -1,0 +1,27 @@
+.modal {
+  background-color: var(--black-700);
+}
+
+.titleCenter {
+  text-align: center;
+}
+
+.title {
+  color: var(--ligth-100);
+}
+
+.container {
+  max-width: 420px;
+  width: 100%;
+  background-color: var(--black-700);
+  color: var(--ligth-100);
+}
+
+:global{
+  .rt-DialogOverlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: transparent; 
+}
+}
