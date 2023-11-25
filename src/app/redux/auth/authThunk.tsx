@@ -1,30 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { instance } from '../configApi';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { url } from 'inspector';
 
-export const authLogin = createAsyncThunk('auth/login', async (authField, { rejectWithValue }) => {
-  console.log(22222);
-
-  try {
-    const res = instance.post('/login', authField);
-    console.log(res);
-  } catch (e) {
-    rejectWithValue('Ошибка логина пользователя');
-  }
-});
-
-export const authRegister = createAsyncThunk(
-  'auth/register',
-  async (authField, { rejectWithValue }) => {
-    try {
-      const res = instance.post('/auth/sign-up', authField);
-      console.log(res);
-    } catch (e) {
-      rejectWithValue('Ошибка регистрации');
-    }
-  }
-);
+interface IMe {
+  avatar: string;
+  id: string;
+  email: string;
+  isEmailVerified: boolean;
+  name: string;
+  created: string;
+  updated: string;
+}
 
 export const auth = createApi({
   reducerPath: 'AuthQuery',
@@ -37,17 +23,24 @@ export const auth = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: [{ type: 'Auth', id: 'LIST' }],
+      invalidatesTags: ['Auth'],
+    }),
+    userMe: builder.query<IMe, null>({
+      query: () => ({
+        url: 'auth/me',
+        method: 'GET',
+      }),
+      providesTags: ['Auth'],
     }),
     userRegister: builder.mutation({
       query: (body) => ({
-        url: `/auth/sign-up`,
+        url: '/auth/sign-up',
         method: 'POST',
         body,
       }),
-      invalidatesTags: [{ type: 'Auth', id: 'LIST' }],
+      invalidatesTags: ['Auth'],
     }),
   }),
 });
 
-export const { useUserRegisterMutation, useUserLoginMutation } = auth;
+export const { useUserRegisterMutation, useUserLoginMutation, useUserMeQuery } = auth;

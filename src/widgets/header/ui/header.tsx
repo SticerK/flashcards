@@ -1,7 +1,5 @@
 import { FC } from 'react';
 import styles from '../styles/header.module.scss';
-import { Flex, Text, Button, Theme, Dialog, TextField, Checkbox } from '@radix-ui/themes';
-import { Modal } from 'shared';
 import { NavLink } from 'react-router-dom';
 import { ModalInteface } from 'pages/auth/login/ui/login';
 

@@ -1,15 +1,12 @@
 import { FC, useState } from 'react';
 import { Header } from 'widgets';
 import styles from '../../styles/auth.module.scss';
-import { Flex, Text, Button, TextField, Checkbox, Box, IconButton } from '@radix-ui/themes';
-import { ExclamationTriangleIcon, EyeOpenIcon, EyeClosedIcon } from '@radix-ui/react-icons';
+import { Flex, Text, Button, Checkbox } from '@radix-ui/themes';
 import { InputPassword, Modal } from 'shared';
 import { NavLink } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { log } from 'console';
-import clsx from 'clsx';
 import DefaultInput from 'shared/inputs/inputDefault/defaultInput';
-import { useUserLoginMutation } from 'app/redux/auth/authThunk';
+import { useUserLoginMutation, useUserMeQuery } from 'app/redux/auth/authThunk';
 
 export interface ModalInteface {
   setOpenModal: (x: boolean) => void;
@@ -26,13 +23,16 @@ const Login: FC = () => {
   const [openModal, setOpenModal] = useState(true);
   const [setLogin] = useUserLoginMutation();
 
+  const { data } = useUserMeQuery(null);
+  console.log(data);
+
   const onSubmit: SubmitHandler<LoginInputs> = (field) => {
     console.log(field);
 
     setLogin({ email: field.email, password: field.password, rememberMe: field.rememberMe });
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setOpenModal(false);
     reset();
   };
@@ -70,7 +70,7 @@ const Login: FC = () => {
           <Flex align={'center'} gap={'2'} mt={'6'}>
             <Checkbox
               {...register('rememberMe')}
-              onCheckedChange={(e) => setValue('rememberMe', e)}
+              onCheckedChange={(e): void => setValue('rememberMe', e)}
             />
             <Text size={'2'}>Remember me</Text>
           </Flex>

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import styles from '../styles/modal.module.scss';
-import { Dialog, Flex, Text, TextField, Button, Theme } from '@radix-ui/themes';
+import { Dialog, Flex } from '@radix-ui/themes';
 import clsx from 'clsx';
-import { extname } from 'path';
 import { ModalInteface } from 'pages/auth/login/ui/login';
 
 export interface ModalProps extends ModalInteface {
