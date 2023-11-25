@@ -32,5 +32,6 @@ module.exports = {
     '@react/no-unescaped-entities': 0,
     '@typescript-eslint/no-confusing-void-expression': 0,
     '@typescript-eslint/no-misused-promises': 0,
+    '@typescript-eslint/space-before-function-paren': 0,
   },
 };

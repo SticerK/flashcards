@@ -1,14 +1,13 @@
 import { FC, useState } from 'react';
 import { Header } from 'widgets';
 import styles from '../../styles/auth.module.scss';
-import { Flex, Text, Button, TextField, IconButton, Box } from '@radix-ui/themes';
+import { Flex, Text, Button, Box } from '@radix-ui/themes';
 import { Modal } from 'shared';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler } from 'react-hook-form';
 import { useUserRegisterMutation } from 'app/redux/auth/authThunk';
 import { Form, InputForm, PasswordForm } from 'etities/form';
 import { formSchema } from '../config/validationConfig';
-import { yupResolver } from "@hookform/resolvers/yup";
 
 export interface RegisterInputs {
   email: string;
@@ -20,15 +19,13 @@ const Register: FC = () => {
   const [singUp, { data }] = useUserRegisterMutation();
   const navigate = useNavigate();
 
-
-
   const handleSubmit: SubmitHandler<RegisterInputs> = (field): void => {
     singUp({ email: field.email, password: field.password })
       .unwrap()
       .then(() => {
-        localStorage.setItem('token', data.token)
+        localStorage.setItem('token', data.token);
         navigate('/login');
-      })
+      });
     // .catch((e) => methods.setError('email', { type: 'custom', message: e.data.errorMessages[0] }));
   };
 
@@ -38,17 +35,27 @@ const Register: FC = () => {
       <Modal title='Sign Up' titleCenter setOpenModal={setOpenModal} openModal={openModal}>
         <Form validateRules={formSchema} handleSubmit={handleSubmit}>
           <Box mt={'5'}>
-            <InputForm labelName='Email' type='email'
-              placeholder='Enter your email' registerName={'email'} />
+            <InputForm
+              labelName='Email'
+              type='email'
+              placeholder='Enter your email'
+              registerName={'email'}
+            />
           </Box>
           <Box mt={'5'}>
-            <PasswordForm registerName='password' labelName='Password' placeholder='Enter your full password' />
+            <PasswordForm
+              registerName='password'
+              labelName='Password'
+              placeholder='Enter your full password'
+            />
           </Box>
-          <Box mt={'5'}><PasswordForm
-            registerName='passwordConfirm'
-            labelName='Confirm password'
-            placeholder='Enter your full password'
-          /></Box>
+          <Box mt={'5'}>
+            <PasswordForm
+              registerName='passwordConfirm'
+              labelName='Confirm password'
+              placeholder='Enter your full password'
+            />
+          </Box>
           <Flex direction={'column'} justify={'center'}>
             <Button mt={'8'} className={styles.button} type='submit'>
               Sign Up

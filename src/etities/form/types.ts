@@ -1,5 +1,3 @@
-
-
 export interface InputProps {
   labelName: string;
   type?: string

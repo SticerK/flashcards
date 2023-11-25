@@ -3,17 +3,16 @@ import { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 export interface ICheckboxForm {
-    registerName: string
+  registerName: string
 }
 
 const CheckboxForm: FC<ICheckboxForm> = ({ registerName }) => {
+  const { register, setValue } = useFormContext()
 
-    const { register, setValue } = useFormContext()
-
-    return <Checkbox
-        {...register(registerName)}
-        onCheckedChange={(e) => setValue(registerName, e)}
-    />
+  return <Checkbox
+    {...register(registerName)}
+    onCheckedChange={(e) => setValue(registerName, e)}
+  />
 }
 
 export default CheckboxForm
