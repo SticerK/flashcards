@@ -4,8 +4,12 @@ import { Flex, Text, Button, Theme, Dialog, TextField, Checkbox } from '@radix-u
 import { Modal } from 'shared';
 import { NavLink } from 'react-router-dom';
 import { ModalInteface } from 'pages/auth/login/ui/login';
+import { useUserMeQuery } from 'app/redux/auth/authThunk';
 
 const Header: FC<ModalInteface> = ({ openModal, setOpenModal }) => {
+
+  const data = useUserMeQuery(null)
+
   return (
     <header className={styles.header}>
       <div className={styles.logo}>Здесь будет что-то лежать</div>

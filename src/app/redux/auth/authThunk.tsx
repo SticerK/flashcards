@@ -37,7 +37,7 @@ export const auth = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: [{ type: 'Auth', id: 'LIST' }],
+      invalidatesTags: ['Auth'],
     }),
     userRegister: builder.mutation({
       query: (body) => ({
@@ -45,9 +45,15 @@ export const auth = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: [{ type: 'Auth', id: 'LIST' }],
+      invalidatesTags: ['Auth'],
+    }),
+    userMe: builder.query({
+      query: () => ({
+        url: `/auth/me`,
+      }),
+      providesTags: ['Auth'],
     }),
   }),
 });
 
-export const { useUserRegisterMutation, useUserLoginMutation } = auth;
+export const { useUserRegisterMutation, useUserLoginMutation, useUserMeQuery } = auth;
