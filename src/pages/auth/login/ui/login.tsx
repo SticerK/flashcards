@@ -1,12 +1,14 @@
 import { FC, useState } from 'react';
 import { Header } from 'widgets';
 import styles from '../../styles/auth.module.scss';
-import { Flex, Text, Button, Checkbox } from '@radix-ui/themes';
-import { InputPassword, Modal } from 'shared';
+import { Flex, Text, Button, Box } from '@radix-ui/themes';
+import { Modal } from 'shared';
 import { NavLink } from 'react-router-dom';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import DefaultInput from 'shared/inputs/inputDefault/defaultInput';
-import { useUserLoginMutation, useUserMeQuery } from 'app/redux/auth/authThunk';
+import { SubmitHandler } from 'react-hook-form';
+import { useUserLoginMutation } from 'app/redux/auth/authThunk';
+import { Form, InputForm, PasswordForm } from 'etities/form';
+import CheckboxForm from 'etities/form/checkbox/form.checkbox';
+import { formSchema } from '../config/validationConfig';
 
 export interface ModalInteface {
   setOpenModal: (x: boolean) => void;
@@ -23,55 +25,35 @@ const Login: FC = () => {
   const [openModal, setOpenModal] = useState(true);
   const [setLogin] = useUserLoginMutation();
 
-  const { data } = useUserMeQuery(null);
-  console.log(data);
-
-  const onSubmit: SubmitHandler<LoginInputs> = (field) => {
-    console.log(field);
-
+  const handleSubmit: SubmitHandler<LoginInputs> = (field) => {
     setLogin({ email: field.email, password: field.password, rememberMe: field.rememberMe });
   };
 
   const closeModal = (): void => {
     setOpenModal(false);
-    reset();
+    // reset();
   };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    setValue,
-  } = useForm({
-    mode: 'onBlur',
-  });
 
   return (
     <>
       <Header setOpenModal={setOpenModal} openModal={openModal} />
       <Modal title='Sign In' titleCenter setOpenModal={closeModal} openModal={openModal}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <DefaultInput
-            registerName={'email'}
-            errors={errors}
+        <Form validateRules={formSchema} handleSubmit={handleSubmit}>
+          <InputForm
             labelName='Email'
+            type='email'
             placeholder='Enter your email'
-            register={register}
-            errorText='Email Address is required'
+            registerName={'email'}
           />
-          <InputPassword
-            errors={errors}
-            registerName='password'
-            labelName='Password'
-            placeholder='Enter your full password'
-            register={register}
-          />
-          <Flex align={'center'} gap={'2'} mt={'6'}>
-            <Checkbox
-              {...register('rememberMe')}
-              onCheckedChange={(e): void => setValue('rememberMe', e)}
+          <Box mt={'5'}>
+            <PasswordForm
+              registerName='password'
+              labelName='Password'
+              placeholder='Enter your full password'
             />
+          </Box>
+          <Flex align={'center'} gap={'2'} mt={'6'}>
+            <CheckboxForm registerName='rememberMe' />
             <Text size={'2'}>Remember me</Text>
           </Flex>
           <Flex justify={'end'}>
@@ -83,16 +65,18 @@ const Login: FC = () => {
             <Button mt={'8'} className={styles.button} type='submit'>
               Sign In
             </Button>
-            <Text align={'center'} mt={'5'}>
-              Don't have an account?
-            </Text>
-            <Text weight={'bold'} align={'center'} mt={'3'}>
-              <NavLink to={'/register'} className={styles.linkCreate}>
-                Sign Up
-              </NavLink>
-            </Text>
           </Flex>
-        </form>
+        </Form>
+        <Flex direction={'column'} justify={'center'}>
+          <Text align={'center'} mt={'5'}>
+            Don&apos;t have an account?
+          </Text>
+          <Text weight={'bold'} align={'center'} mt={'3'}>
+            <NavLink to={'/register'} className={styles.linkCreate}>
+              Sign Up
+            </NavLink>
+          </Text>
+        </Flex>
       </Modal>
     </>
   );

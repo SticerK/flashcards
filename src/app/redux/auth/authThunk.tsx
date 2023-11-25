@@ -1,5 +1,3 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { instance } from '../configApi';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 interface IMe {
@@ -25,13 +23,6 @@ export const auth = createApi({
       }),
       invalidatesTags: ['Auth'],
     }),
-    userMe: builder.query<IMe, null>({
-      query: () => ({
-        url: 'auth/me',
-        method: 'GET',
-      }),
-      providesTags: ['Auth'],
-    }),
     userRegister: builder.mutation({
       query: (body) => ({
         url: '/auth/sign-up',
@@ -39,6 +30,12 @@ export const auth = createApi({
         body,
       }),
       invalidatesTags: ['Auth'],
+    }),
+    userMe: builder.query<string, IMe>({
+      query: () => ({
+        url: '/auth/me',
+      }),
+      providesTags: ['Auth'],
     }),
   }),
 });
