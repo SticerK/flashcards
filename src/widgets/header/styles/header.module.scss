@@ -1,5 +1,5 @@
 .header {
-  height: 60px;
+  height: var(--header-heigth);
   width: 100%;
   background-color: var(--black-700);
   border-bottom: 1px solid var(--black-500);
@@ -18,7 +18,7 @@
   color: var(--ligth-100);
   border-radius: 4px;
   height: 36px;
-  box-shadow: 0px 4px 18px 0px rgba(140, 97, 255, 0.35);
+  box-shadow: 0 4px 18px 0 rgb(140 97 255 / 35%);
   display: flex;
   align-items: center;
   justify-content: center;

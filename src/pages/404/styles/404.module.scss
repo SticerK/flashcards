@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  height: calc(100vh - var(--header-heigth));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.text {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ligth-100);
+  margin-top: 47px;
+  margin-bottom: 28px;
+}

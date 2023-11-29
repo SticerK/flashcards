@@ -1,18 +1,9 @@
-import { object, string, InferType } from 'yup';
-
-export interface ILoginFields {
-  password: string;
-  email: string;
-}
+import { boolean, object, string } from 'yup';
 
 export const formSchema = object({
   password: string().required('Password is required'),
   email: string()
     .email('The entered email address is incorrect')
     .required('Email Address is required'),
+  rememberMe: boolean(),
 });
-
-export interface LoginForm extends InferType<typeof formSchema> {
-  password: string;
-  email: string;
-}

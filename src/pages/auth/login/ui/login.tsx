@@ -1,19 +1,14 @@
 import { FC, useState } from 'react';
 import { Header } from 'widgets';
 import styles from '../../styles/auth.module.scss';
-import { Flex, Text, Button, Box } from '@radix-ui/themes';
-import { Modal } from 'shared';
+import { Flex, Text, Box, Checkbox } from '@radix-ui/themes';
+import { Input, Modal } from 'shared';
 import { NavLink } from 'react-router-dom';
-import { SubmitHandler } from 'react-hook-form';
+import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { useUserLoginMutation } from 'app/redux/auth/authThunk';
-import { Form, InputForm, PasswordForm } from 'etities/form';
-import CheckboxForm from 'etities/form/checkbox/form.checkbox';
 import { formSchema } from '../config/validationConfig';
-
-export interface ModalInteface {
-  setOpenModal: (x: boolean) => void;
-  openModal: boolean;
-}
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Button } from 'shared';
 
 export interface LoginInputs {
   email: string;
@@ -24,36 +19,74 @@ export interface LoginInputs {
 const Login: FC = () => {
   const [openModal, setOpenModal] = useState(true);
   const [setLogin] = useUserLoginMutation();
+  const {
+    control,
+    setError,
+    handleSubmit,
+    register,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      rememberMe: false,
+    },
+    mode: 'onSubmit',
+    resolver: yupResolver(formSchema),
+  });
 
-  const handleSubmit: SubmitHandler<LoginInputs> = (field) => {
-    setLogin({ email: field.email, password: field.password, rememberMe: field.rememberMe });
+  const onSubmit: SubmitHandler<LoginInputs> = (field) => {
+    setLogin({ email: field.email, password: field.password, rememberMe: field.rememberMe })
+      .unwrap()
+      .then(() => null)
+      .catch(({ data }) => setError('email', { type: 'custom', message: data.message }));
   };
 
   const closeModal = (): void => {
     setOpenModal(false);
-    // reset();
+    reset();
   };
 
   return (
     <>
       <Header setOpenModal={setOpenModal} openModal={openModal} />
       <Modal title='Sign In' titleCenter setOpenModal={closeModal} openModal={openModal}>
-        <Form validateRules={formSchema} handleSubmit={handleSubmit}>
-          <InputForm
-            labelName='Email'
-            type='email'
-            placeholder='Enter your email'
-            registerName={'email'}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name='email'
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                type='text'
+                placeholder='Enter your email'
+                labelName='Email'
+                value={value}
+                onChange={onChange}
+                errorMessage={errors?.email?.message}
+              />
+            )}
           />
           <Box mt={'5'}>
-            <PasswordForm
-              registerName='password'
-              labelName='Password'
-              placeholder='Enter your full password'
+            <Controller
+              name='password'
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  type='password'
+                  placeholder='Enter your password'
+                  labelName='Password'
+                  value={value}
+                  onChange={onChange}
+                  errorMessage={errors?.password?.message}
+                />
+              )}
             />
           </Box>
           <Flex align={'center'} gap={'2'} mt={'6'}>
-            <CheckboxForm registerName='rememberMe' />
+            <Checkbox
+              {...register('rememberMe')}
+              onCheckedChange={(e: boolean) => setValue('rememberMe', e)}
+            />
             <Text size={'2'}>Remember me</Text>
           </Flex>
           <Flex justify={'end'}>
@@ -61,12 +94,12 @@ const Login: FC = () => {
               Forgot Password?
             </NavLink>
           </Flex>
-          <Flex direction={'column'} justify={'center'}>
-            <Button mt={'8'} className={styles.button} type='submit'>
+          <Flex direction={'column'} justify={'center'} mt={'7'}>
+            <Button variant='fill' type='submit'>
               Sign In
             </Button>
           </Flex>
-        </Form>
+        </form>
         <Flex direction={'column'} justify={'center'}>
           <Text align={'center'} mt={'5'}>
             Don&apos;t have an account?

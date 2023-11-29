@@ -16,6 +16,9 @@ module.exports = {
     },
   ],
   parserOptions: {
+    parser: '@typescript-eslint/parser',
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
@@ -33,5 +36,6 @@ module.exports = {
     '@typescript-eslint/no-confusing-void-expression': 0,
     '@typescript-eslint/no-misused-promises': 0,
     '@typescript-eslint/space-before-function-paren': 0,
+    'multiline-ternary': ['error', 'never'],
   },
 };

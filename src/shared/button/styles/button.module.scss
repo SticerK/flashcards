@@ -1,0 +1,20 @@
+.button {
+  border-radius: 4px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.fill {
+  background-color: var(--accent-500);
+  color: var(--ligth-100);
+  box-shadow: 0 4px 18px 0 rgb(140 97 255 / 35%);
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #7750e2fd;
+  }
+}

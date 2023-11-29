@@ -1,4 +1,4 @@
-import { ForgotPassword, Login, Register } from 'pages';
+import { ForgotPassword, Login, NotFound, Register } from 'pages';
 import { ReactElement } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -6,6 +6,7 @@ export enum routerPath {
   LOGIN = '/login',
   REGISTER = '/register',
   FORGOTPASSWORD = '/forgotpassword',
+  NOT_FOUND = '/*',
 }
 
 export interface Router {
@@ -37,6 +38,14 @@ export const router = createBrowserRouter([
     element: (
       <>
         <ForgotPassword />
+      </>
+    ),
+  },
+  {
+    path: routerPath.NOT_FOUND,
+    element: (
+      <>
+        <NotFound />
       </>
     ),
   },

@@ -1,19 +1,20 @@
 :root {
   --black-100: #4c4c4c;
-  --black-300: #333333;
+  --black-300: #333;
   --black-500: #282828;
   --black-700: #171717;
-  --black-900: #000000;
-
+  --black-900: #000;
   --accent-100: #bea6ff;
   --accent-300: #a280ff;
   --accent-500: #8c61ff;
   --accent-700: #704ecc;
   --accent-900: #382766;
-
   --ligth-100: #fff;
   --ligth-300: #f9f7ff;
   --ligth-500: #f4f2fa;
   --ligth-700: #dcdae0;
   --ligth-900: #c3c1c7;
+
+  //разметка
+  --header-heigth: 60px;
 }

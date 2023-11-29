@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from '../styles/modal.module.scss';
 import { Dialog, Flex } from '@radix-ui/themes';
 import clsx from 'clsx';
-import { ModalInteface } from 'pages/auth/login/ui/login';
+import { ModalInteface } from 'widgets/header/types/types';
 
 export interface ModalProps extends ModalInteface {
   title?: string;
