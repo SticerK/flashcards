@@ -4,16 +4,33 @@ import styles from '../styles/button.module.scss';
 import clsx from 'clsx';
 
 export interface IButton {
-  variant: 'fill' | 'goust' | 'normal';
+  variant: 'fill' | 'ghost' | 'normal';
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
+  className?: string;
+  visible?: boolean;
+  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
 }
 
-const Button: FC<IButton> = ({ children, variant, onClick, type }) => {
+const Button: FC<IButton> = ({
+  children,
+  variant,
+  onClick,
+  type,
+  className,
+  visible = true,
+  radius = 'none',
+}) => {
   return (
-    <ButtonRadix className={clsx(styles[variant], styles.button)} onClick={onClick} type={type}>
-      {children}
-    </ButtonRadix>
+    visible && (
+      <ButtonRadix
+        radius={radius}
+        className={clsx(styles[variant], styles.button, className)}
+        onClick={onClick}
+        type={type}>
+        {children}
+      </ButtonRadix>
+    )
   );
 };
 

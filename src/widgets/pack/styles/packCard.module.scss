@@ -1,0 +1,54 @@
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ligth-100);
+}
+
+.input {
+  background-color: black;
+  color: var(--black-300);
+
+  &::placeholder {
+    color: var(--black-300);
+  }
+}
+
+.rootInput {
+  border: 1px solid var(--black-300);
+}
+
+.loader {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+}
+
+.tableRoot {
+  min-height: 100px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.headerRow {
+  background-color: var(--black-500);
+  color: var(--ligth-100);
+}
+
+.row {
+  transition: background 0.3s ease, color 0.3s ease;
+  &:hover {
+    background-color: var(--black-300);
+    color: var(--ligth-100);
+    cursor: pointer;
+  }
+}
+
+.question {
+  width: 25%;
+}
+
+.text {
+  color: var(--black-100);
+}

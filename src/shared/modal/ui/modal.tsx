@@ -6,7 +6,8 @@ import { ModalInteface } from 'widgets/header/types/types';
 
 export interface ModalProps extends ModalInteface {
   title?: string;
-  titleCenter: boolean;
+  titleCenter?: boolean;
+  className?: string;
 }
 
 const TransitionsModal: React.FC<ModalProps> = ({
@@ -15,11 +16,16 @@ const TransitionsModal: React.FC<ModalProps> = ({
   titleCenter,
   openModal,
   setOpenModal,
+  className,
 }) => {
   return (
-    <Dialog.Root open={openModal} onOpenChange={() => setOpenModal(false)}>
-      <Dialog.Content className={styles.container}>
-        <Dialog.Title className={clsx(styles.title, { [styles.titleCenter]: titleCenter })}>
+    <Dialog.Root open={openModal} onOpenChange={() => setOpenModal && setOpenModal(false)}>
+      <Dialog.Content className={clsx(styles.container, className)}>
+        <Dialog.Title
+          className={clsx(styles.title, {
+            [styles.titleCenter]: titleCenter,
+            [styles.modalBorder]: !titleCenter,
+          })}>
           {title}
         </Dialog.Title>
         <Flex direction='column' gap='3'>

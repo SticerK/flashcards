@@ -1,5 +1,4 @@
 .button {
-  border-radius: 4px;
   height: 36px;
   display: flex;
   align-items: center;
@@ -17,4 +16,13 @@
   &:hover {
     background: #7750e2fd;
   }
+}
+
+.normal {
+  background: var(--dark-300, #4c4c4c);
+  color: var(--ligth-100);
+}
+
+.ghost {
+  background-color: transparent;
 }

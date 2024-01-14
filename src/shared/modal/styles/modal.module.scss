@@ -1,5 +1,6 @@
 .modal {
   background-color: var(--black-700);
+  z-index: 1000;
 }
 
 .titleCenter {
@@ -10,18 +11,26 @@
   color: var(--ligth-100);
 }
 
+.modalBorder {
+  border-bottom: 1px solid var(--black-500);
+  margin: 0 -24px;
+  padding: 0 20px 15px;
+}
+
 .container {
   max-width: 420px;
   width: 100%;
   background-color: var(--black-700);
   color: var(--ligth-100);
+  border-radius: 0;
+  border: 1px solid var(--black-500);
 }
 
-:global{
+:global {
   .rt-DialogOverlay::after {
     content: '';
     position: absolute;
     inset: 0;
-    background-color: transparent; 
-}
+    background-color: transparent;
+  }
 }

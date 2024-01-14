@@ -1,26 +1,32 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styles from '../styles/header.module.scss';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { EditUser, UserInfo } from 'features';
+import { Container, Flex } from '@radix-ui/themes';
 
-import { useNavigate } from 'react-router-dom';
-import { Button } from 'shared';
-import { ModalInteface } from '../types/types';
-
-const Header: FC<ModalInteface> = ({ openModal, setOpenModal }) => {
+const Header: FC = () => {
   const navigate = useNavigate();
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
-  const handleClick = (): void => {
+  const openLogin = (): void => {
     setOpenModal(!openModal);
     navigate('/login');
   };
 
   return (
-    <header className={styles.header}>
-      <div className={styles.logo}>Здесь будет что-то лежать</div>
-
-      <Button variant='fill' onClick={handleClick}>
-        Sign In
-      </Button>
-    </header>
+    <>
+      <header className={styles.header}>
+        <Container size={'4'}>
+          <Flex justify={'between'} align={'center'}>
+            <div className={styles.logo}>Здесь будет что-то лежать</div>
+            <UserInfo openLogin={openLogin} openUserSettings={() => setOpenEdit(true)} />
+          </Flex>
+        </Container>
+      </header>
+      {openEdit && <EditUser setOpenModal={setOpenEdit} openModal={openEdit} />}
+      <Outlet />
+    </>
   );
 };
 

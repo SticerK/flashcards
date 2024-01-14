@@ -1,39 +1,43 @@
-import { FC, useState } from 'react';
-import { Header } from 'widgets';
+import { FC } from 'react';
 import styles from '../../styles/auth.module.scss';
 import { Flex, Text, Box } from '@radix-ui/themes';
 import { Button, Input, Modal } from 'shared';
 import { NavLink } from 'react-router-dom';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { formSchema } from '../config/validationConfig';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, SubmitHandler, useFormContext } from 'react-hook-form';
 
-export interface IForgotPassword {
+import { useForgotPasswordMutation } from 'app/redux/auth/authThunk';
+import { toast } from 'react-toastify';
+
+export interface IForgotPasswordForm {
   email: string;
 }
 
-const ForgotPassword: FC = () => {
-  const [openModal, setOpenModal] = useState(true);
+interface IForgotPassword {
+  setCheckMainModal: (x: boolean) => void;
+}
 
+const ForgotPassword: FC<IForgotPassword> = ({ setCheckMainModal }) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    mode: 'onSubmit',
-    resolver: yupResolver(formSchema),
-  });
+  } = useFormContext();
+  const [handleForgotPassword] = useForgotPasswordMutation();
 
-  const onSubmit: SubmitHandler<IForgotPassword> = (e) => {};
+  const onSubmit: SubmitHandler<IForgotPasswordForm> = (e) => {
+    handleForgotPassword(e.email)
+      .unwrap()
+      .then(() => setCheckMainModal(true))
+      .catch(({ data }) => {
+        toast(data.message);
+      });
+  };
+
+  console.log(errors);
 
   return (
     <>
-      <Header setOpenModal={setOpenModal} openModal={openModal} />
-      <Modal
-        title='Forgot your password?'
-        titleCenter
-        setOpenModal={setOpenModal}
-        openModal={openModal}>
+      <Modal title='Forgot your password?' titleCenter openModal={true}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box>
             <Controller
@@ -46,7 +50,6 @@ const ForgotPassword: FC = () => {
                   labelName='Email'
                   value={value}
                   onChange={onChange}
-                  errorMessage={errors?.email?.message}
                 />
               )}
             />

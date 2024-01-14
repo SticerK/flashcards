@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import styles from '../styles/input.module.scss';
 import { Text, TextField } from '@radix-ui/themes';
 import { ExclamationTriangleIcon, EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
@@ -6,9 +6,9 @@ import { ExclamationTriangleIcon, EyeClosedIcon, EyeOpenIcon } from '@radix-ui/r
 interface IInput {
   type: 'text' | 'password';
   placeholder?: string;
-  labelName: string;
+  labelName?: string;
   value: string;
-  onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   errorMessage?: string;
 }
 

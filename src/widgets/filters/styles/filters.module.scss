@@ -1,0 +1,30 @@
+.radioButton {
+  border: 1px solid var(--black-300);
+}
+
+.slider {
+  width: 155px;
+}
+
+.label {
+  color: var(--ligth-100);
+}
+
+:global {
+  .rt-SliderRange {
+    background-color: var(--accent-500);
+  }
+  .rt-SliderTrack {
+    background-color: var(--accent-900);
+  }
+}
+
+.sliderBox {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--black-300);
+  color: var(--ligth-100);
+}

@@ -1,0 +1,57 @@
+.loader {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+}
+
+.name {
+  width: 25%;
+}
+
+.cardsCount {
+  width: 10%;
+}
+
+.updated {
+  width: 25%;
+}
+
+.tableRoot {
+  min-height: 100px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.headerRow {
+  background-color: var(--black-500);
+  color: var(--ligth-100);
+}
+
+.row {
+  transition: background 0.3s ease, color 0.3s ease;
+  &:hover {
+    background-color: var(--black-300);
+    color: var(--ligth-100);
+    cursor: pointer;
+  }
+}
+
+.icon {
+  transition: color 0.3s ease;
+  &:hover {
+    color: var(--accent-700);
+  }
+}
+
+.resetBtn {
+  color: var(--ligth-100);
+  background-color: transparent;
+  border: 0;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  &:hover {
+    color: var(--accent-700);
+  }
+}

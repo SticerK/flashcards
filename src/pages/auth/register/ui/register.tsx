@@ -1,10 +1,9 @@
-import { FC, useState } from 'react';
-import { Header } from 'widgets';
+import { FC } from 'react';
 import styles from '../../styles/auth.module.scss';
 import { Flex, Text, Box } from '@radix-ui/themes';
 import { Button, Input, Modal } from 'shared';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useUserRegisterMutation } from 'app/redux/auth/authThunk';
 import { formSchema } from '../config/validationConfig';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,17 +15,13 @@ export interface RegisterInputs {
 }
 
 const Register: FC = () => {
-  const [openModal, setOpenModal] = useState(true);
-  const [singUp, { data }] = useUserRegisterMutation();
+  const [singUp] = useUserRegisterMutation();
   const navigate = useNavigate();
 
   const {
     control,
     setError,
     handleSubmit,
-    register,
-    setValue,
-    reset,
     formState: { errors },
   } = useForm({
     mode: 'onSubmit',
@@ -37,7 +32,6 @@ const Register: FC = () => {
     singUp({ email: field.email, password: field.password })
       .unwrap()
       .then(() => {
-        localStorage.setItem('token', data.token);
         navigate('/login');
       })
       .catch(({ data }) => setError('email', { type: 'custom', message: data.errorMessages[0] }));
@@ -45,8 +39,7 @@ const Register: FC = () => {
 
   return (
     <>
-      <Header setOpenModal={setOpenModal} openModal={openModal} />
-      <Modal title='Sign Up' titleCenter setOpenModal={setOpenModal} openModal={openModal}>
+      <Modal title='Sign Up' titleCenter openModal={true}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
             name='email'

@@ -1,4 +1,4 @@
 export interface ModalInteface {
-  setOpenModal: (x: boolean) => void;
-  openModal: boolean;
+  setOpenModal?: (x: boolean) => void;
+  openModal?: boolean;
 }

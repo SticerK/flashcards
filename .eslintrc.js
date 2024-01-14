@@ -37,5 +37,6 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 0,
     '@typescript-eslint/space-before-function-paren': 0,
     'multiline-ternary': ['error', 'never'],
+    '@typescript-eslint/no-invalid-void-type': 0,
   },
 };
